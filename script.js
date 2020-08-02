@@ -1,19 +1,24 @@
 $("#currentDay").text(moment().format('dddd, MMMM Do'));
-$("#currentHour").text(moment().format('h'));
+$("#currentHour").text(moment().format('H'));
 
 var currentHour = $("#currentHour")[0].textContent
-var timeBlock = ""
+console.log("Current Hour:", currentHour)
 
-console.log(currentHour)
-
+// Color Coding
 $(".time-block").each(function () {
-    timeBlock = $(this)[0].textContent
+    let timeBlockHour = $(this).attr("id").split("-")[0]
+
+    console.log(timeBlockHour)
+
+    if (timeBlockHour === currentHour) {
+        $(this).addClass("present");
+    }
+
+    if (timeBlockHour > currentHour) {
+        $(this).addClass("future");
+    }
+
+    if (timeBlockHour < currentHour) {
+        $(this).addClass("past");
+    }
 })
-
-console.log(timeBlock)
-
-function getCurrentHour() {
-    var hourNum = str.split(timeBlock);
-    console.log = (hourNum)
-}
-
