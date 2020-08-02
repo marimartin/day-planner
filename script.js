@@ -1,14 +1,14 @@
+// Display current date
 $("#currentDay").text(moment().format('dddd, MMMM Do'));
+
+// Hidden display of current hour
 $("#currentHour").text(moment().format('H'));
 
 var currentHour = $("#currentHour")[0].textContent
-console.log("Current Hour:", currentHour)
 
 // Color Coding
 $(".time-block").each(function () {
     let timeBlockHour = $(this).attr("id").split("-")[0]
-
-    console.log(timeBlockHour)
 
     if (timeBlockHour === currentHour) {
         $(this).addClass("present");
@@ -22,3 +22,11 @@ $(".time-block").each(function () {
         $(this).addClass("past");
     }
 })
+
+// Save button
+$(".saveBtn").click(function () {
+    var userInput = $(this).siblings(".description").val()
+    let hour = $(".time-block").attr("id").split("-")[0]
+    localStorage.setItem(hour, userInput);
+});
+
