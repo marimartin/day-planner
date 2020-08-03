@@ -28,9 +28,10 @@ var timeBlockContent = $(".saveBtn").siblings(".description").val()
 // Save button - Saves to Local Storage
 $(".saveBtn").click(function () {
     var userInput = $(this).siblings(".description").val()
-    var hour = $(".time-block").attr("id").split("-")[0]
+    var hour = $(this).parent().attr("id").split("-")[0]
+
     localStorage.setItem(hour, userInput);
-    // alert('hello');
+
     console.log(localStorage)
 });
 
