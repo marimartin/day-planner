@@ -1,39 +1,74 @@
 // Display current date
 $("#currentDay").text(moment().format('dddd, MMMM Do'));
 
-// Hidden display of current hour
-$("#currentHour").text(moment().format('H'));
+// Update current hour every minute 
+var currentHour = moment().hour();
 
-var currentHour = $("#currentHour")[0].textContent
+function updateTime() {
+    $("#currentHour").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+};
 
-// Color Coding
-$(".time-block").each(function () {
-    let timeBlockHour = $(this).attr("id").split("-")[0]
+setTimeBlock();
+updateTime();
+setInterval(function () {
+    updateTime();
+    setTimeBlock();
+}, 60000);
 
-    if (timeBlockHour === currentHour) {
-        $(this).addClass("present");
-    }
+// Color Coding and Display User Input
+function setTimeBlock() {
+    $(".time-block").each(function () {
+        var timeBlockID = $(this).attr("id")
+        var displayedText = localStorage.getItem(timeBlockID);
 
-    if (timeBlockHour > currentHour) {
-        $(this).addClass("future");
-    }
+        $(this).children("textarea").val(displayedText)
 
-    if (timeBlockHour < currentHour) {
-        $(this).addClass("past");
-    }
-})
+        let timeBlockHour = $(this).attr("id").split("-")[0]
 
-var timeBlockContent = $(".saveBtn").siblings(".description").val()
+        if (timeBlockHour == currentHour) {
+            $(this).addClass("present");
+            $(this).removeClass("future");
+            $(this).removeClass("past");
+        }
+
+        if (timeBlockHour > currentHour) {
+            $(this).addClass("future");
+            $(this).removeClass("present");
+            $(this).removeClass("past");
+        }
+
+        if (timeBlockHour < currentHour) {
+            $(this).addClass("past");
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+        }
+    })
+}
 
 // Save button - Saves to Local Storage
-$(".saveBtn").click(function () {
-    var userInput = $(this).siblings(".description").val()
-    var hour = $(this).parent().attr("id").split("-")[0]
+var timeBlockContent = $(".saveBtn").siblings(".description").val()
 
-    localStorage.setItem(hour, userInput);
+$(".saveBtn").click(function () {
+    event.preventDefault();
+    var userInput = $(this).siblings(".description").val()
+    var key = $(this).parent().attr("id")
+
+    localStorage.setItem(key, userInput);
 
     console.log(localStorage)
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
