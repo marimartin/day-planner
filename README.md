@@ -5,5 +5,5 @@ This Day Planner color codes each hour of the day to show what is in the past, p
 Published Site:
 https://marimartin.github.io/day-planner/
 
-<img src="/screenshots/screenshot-1.jpg" height="500">
-<img src="/screenshots/screenshot-2.jpg"  height="500">
+<img src="/screenshots/screenshot-1.png" height="500">
+<img src="/screenshots/screenshot-2.png"  height="500">
